@@ -1,0 +1,78 @@
+<app-loading *ngIf="isSpinnerShow"></app-loading>
+<div class="cars-container" *ngIf="!isSpinnerShow">
+    <div class="flex">
+        <label>{{'objects'|translate}} ({{objectsDB.length}})</label>
+        <img title="Yenilə" (click)="refresh()">
+    </div>
+
+    <hr>
+
+    <div class="select-user-container" *ngIf="active_role=='Admin'">
+        <mat-form-field appearance="fill">
+            <mat-label>{{'users'|translate}}({{userId_and_username.length}})</mat-label>
+            <mat-select [(ngModel)]="selected_user_id" (selectionChange)="selectUser(true)">
+                <mat-option [value]="activeId">
+                    <img class="complete_icon_black"
+                        [src]="activeId==selected_user_id?'../../../assets/images/complete_icon_black.svg':'../../../assets/images/ellipse_gray.svg'"
+                        alt="">
+                    {{'all_objects' | translate}}</mat-option>
+                <mat-option *ngFor="let user of userId_and_username" [value]="user.userId">
+                    <img class="complete_icon_black"
+                        [src]="user.userId==selected_user_id?'../../../assets/images/complete_icon_black.svg':'../../../assets/images/ellipse_gray.svg'"
+                        alt="">
+                    {{user.username}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <app-search-input (inputEvent)="searchInputEvent($event)"></app-search-input>
+
+
+    <label *ngIf="objects_model.length==0 && objectsDB.length!=0">"{{searchText}}"
+        {{'searchText_not_find'|translate}}</label>
+    <div class="contain">
+
+        <div *ngIf="active_role=='Admin' && objects_model.length!=0">
+            <label class="label" *ngIf="selected_user_id!=activeId">"{{selected_username}}"
+                {{'drivers_of_user' | translate}}</label>
+            <label class="label" *ngIf="selected_user_id==activeId">{{'all_objects' | translate}}</label>
+        </div>
+
+        <div class="car_field" *ngFor="let object of objects_model;index as i;trackBy: trackDataSource">
+
+            <img *ngIf="object.objectType==0" src='../../../assets/images/gps_icon_gray.svg' alt="" class="car-icon">
+            <img *ngIf="object.objectType==1" src='../../../assets/images/person_icon_gray.svg' alt="" class="car-icon">
+            <img *ngIf="object.objectType==2" src='../../../assets/images/car_icon.svg' alt="" class="car-icon">
+
+
+            <div class="fullname-container">
+                <div>
+                    <label class="gpsSerialNumber">{{object.gpsSerialNumber}}</label>
+                    <label *ngIf="object.objectName ">{{" - "}}</label>
+                    <label class="objectName" *ngIf="object.objectName" [matTooltip]="object.objectName.length>13?object.objectName:''">{{object.objectName.length<13?object.objectName:object.objectName.slice(0,13)+'...'}}</label>
+                </div>
+                <div>
+                    <label *ngIf="object.objectDetails" [matTooltip]="object.objectDetails.length>18?object.objectDetails:''">{{object.objectDetails.length<18?object.objectDetails:object.objectDetails.slice(0,18)+ '...'}}</label>
+                </div>
+
+            </div>
+
+            <div class="icon-container">
+                <img [src]="object.notification?'../../../assets/images/isnotification_icon.svg':'../../../assets/images/mute_icon_red.svg'" alt="" class="icon" 
+                (click)="setNotification(object.gpsId)">
+
+                <hr class="vertical-line">
+
+                <img src="../../../assets/images/edit_icon_white.svg" alt="" class="icon"
+                    (click)="updateObject(object.gpsId)">
+
+                <hr class="vertical-line">
+
+                <img src="../../../assets/images/remove_icon_red.svg" alt="" class="icon" mat-raised-button
+                    (click)="openDeleteDialog(object.gpsId,object.gpsSerialNumber)">
+            </div>
+        </div>
+
+    </div>
+</div>

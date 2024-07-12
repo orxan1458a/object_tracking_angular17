@@ -1,0 +1,91 @@
+<div class="navbar-arrow" (click)="clickNavbarArrow()">
+  <img src="../../../../assets/images/arrows.png" [ngClass]="{'rotate':this.data_service.router_size_boolean}">
+</div>
+
+<div class="buttons" *ngIf="data_service.carTrackData.length==0">
+  <div [ngClass]="{'isActive':data_service.is_center_object}">
+    <img src="../../../../assets/images/set_center.png" (click)="isCenter()">
+  </div>
+  <div [ngClass]="{'isActive':data_service.show_all_object}">
+    <img src="../../../../assets/images/object_icon.png" (click)="showObjects()">
+  </div>
+  <div [ngClass]="{'isActive':data_service.head_eye_icon_id!=-1}">
+    <img src="../../../../assets/images/triangle_gray.png" (click)="showZones()">
+  </div>
+  <div [ngClass]="{'isActive':data_service.show_live_trajectory}">
+    <img src="../../../../assets/images/trajectory_icon.svg" (click)="showLiveTrajectory()">
+  </div>
+</div>
+<div class="map-container">
+
+
+  <div class="windows-box">
+    <app-update-zone></app-update-zone>
+    <app-find-point></app-find-point>
+    <app-find-place></app-find-place>
+  </div>
+
+  <app-notification></app-notification>
+
+  <google-map #map [center]="{lat:lat,lng:lng}" [height]="'100%'" [width]="'100%'" class="google-map"
+    (mapInitialized)="mapReadyHandler(map)" (mapClick)="clickMap($event)">
+
+    <map-marker *ngIf="data_service.animation_object[0]!=0" #marker="mapMarker"
+      [position]="{lat:data_service.animation_object[0],lng:data_service.animation_object[1]}" />
+
+    <map-marker-clusterer [imagePath]="markerClustererImagePath">
+      @if (data_service.show_all_object) {
+      @for (data of data_service.all_live_cars; track data) {
+      @switch (true) {
+      @case (data.objType==0) {
+      <map-marker #marker="mapMarker" [position]="{lat:data.point[0],lng:data.point[1]}"
+        [options]="{icon:data_service.focus_gps_id==data.gpsId?'../../../../assets/images/object_point_turqoise.svg':'../../../../assets/images/object_point_gray.svg'}"
+        (mapClick)="openInfoWindow(marker,data,infoWindow)" />
+      }
+      @case (data.objType==1) {
+      <map-marker #marker="mapMarker" [position]="{lat:data.point[0],lng:data.point[1]}"
+        [options]="{icon:data_service.focus_gps_id==data.gpsId?'../../../../assets/images/person_point_turqoise.svg':'../../../../assets/images/person_point_gray.svg'}"
+        (mapClick)="openInfoWindow(marker,data,infoWindow)" />
+      }
+      @case (data.objType==2) {
+      <map-marker #marker="mapMarker" [position]="{lat:data.point[0],lng:data.point[1]}"
+        [options]="{icon:data_service.focus_gps_id==data.gpsId?'../../../assets/images/car_point_turqoise.svg':'../../../../assets/images/car_point_gray.svg'}"
+        (mapClick)="openInfoWindow(marker,data,infoWindow)" />
+      }
+      }
+      <map-info-window #infoWindow="mapInfoWindow">{{data.gpsNumber + " - "+ data.objName}}</map-info-window>
+      <map-circle [center]="{lat:data.point[0],lng:data.point[1]}" [radius]="data.accuracy>50?550:10"
+        *ngIf="data_service.focus_gps_id==data.gpsId"
+        [options]="{fillColor:'#0071c5',fillOpacity:0.1,strokeColor:'#0071c5', strokeWeight:0.5}" />
+      }
+      }
+    </map-marker-clusterer>
+
+    <!-- tracks -->
+    <map-polyline [options]="polylineOptions" />
+
+    <!-- show one zone polygon -->
+    @if (data_service.eye_icon_id!=-1 || data_service.update_icon_id!=-1) {
+    <map-polygon (polygonMousedown)="polygonEdit()"  [paths]="zone_path" [options]="{
+         fillColor:updateStrokeColor,
+         strokeColor:updateStrokeColor,
+         strokeWeight:3
+        }" />
+    }
+    @if (data_service.update_icon_id!=-1) {
+    @for (point of zone_path; track $index) {
+    <map-marker #marker="mapMarker" [position]="point" (mapDrag)="dragUpdateMarker($event,point.id)"
+      [options]="{icon:'../../../../assets/images/polygon_point_icon_black.svg',draggable:true}" />
+    }
+    }
+    <!-- show all zone polygon -->
+    @for (zone of allZones; track $index) {
+    <map-polygon [paths]="zone.pointList" [options]="{
+      fillColor:(zone.allow?'green':'red'),
+      strokeColor:(zone.allow?'#07b57a':'#EB2E2E'),
+      strokeWeight:3
+    }" />
+    }
+
+  </google-map>
+</div>

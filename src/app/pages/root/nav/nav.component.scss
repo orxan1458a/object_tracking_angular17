@@ -1,0 +1,144 @@
+@import '../../../../styles/colors.scss';
+
+/* horizontal line top  */
+.nav-container {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto 1fr auto;
+    height: 100%;
+    width: 80px;
+    transition: 0.5s;
+
+    &:hover {
+        width: 250px;
+
+        .gps-logo-container {
+            img {
+                content: url("../../../../assets/images/gps_logo.svg");
+            }
+        }
+
+        label {
+            visibility: visible;
+        }
+    }
+
+    label {
+        font-size: 19px;
+        cursor: pointer;
+        white-space: nowrap;
+        visibility: hidden;
+    }
+
+    .card {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        cursor: pointer;
+        padding: 10px;
+        transition: all 400ms;
+        gap: 10px;
+        width: auto;
+
+        &:hover {
+            background-color: $main-color;
+            color: white;
+            border-radius: 6px;
+        }
+
+        div {
+            background-color: #f6f6f6;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+
+            img {
+                width: 20px;
+                height: 20px;
+                padding: 10px;
+            }
+        }
+    }
+
+    .active {
+        background-color: $main-color;
+        color: white;
+        border-radius: 6px;
+
+        img {
+            filter: brightness(0) saturate(100%) invert(60%) sepia(76%) saturate(3140%) hue-rotate(138deg) brightness(93%) contrast(98%);
+        }
+
+        ;
+    }
+
+    .gps-logo-container {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        border-bottom: 1px solid #e4e4e4;
+
+        img {
+            height: 5vh;
+            width: auto;
+            justify-content: left;
+            align-items: center;
+            margin: 20px;
+            content: url("../../../../assets/images/mini_logo.svg");
+        }
+    }
+
+
+
+    .title-container {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+    }
+
+    .logout-container {
+        padding: 10px;
+        grid-row: 4;
+        border-top: 1px solid #e4e4e4;
+
+        .card {
+            &:hover {
+                background-color: rgb(201, 3, 3);
+            }
+        }
+    }
+}
+
+@media (min-width: 19in) {
+    .nav-container {
+        width: 90px;
+
+        .card {
+            div {
+                width: 50px;
+                height: 50px;
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                    min-width: 30px;
+                    min-height: 30px;
+                }
+            }
+
+        }
+
+    }
+}
+
+@media only screen and (max-width: 800px) {
+
+    .nav-container {
+        display: none;
+    }
+}

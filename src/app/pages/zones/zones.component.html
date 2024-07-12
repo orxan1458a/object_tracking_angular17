@@ -1,0 +1,138 @@
+<app-loading *ngIf="isLoadingShow"></app-loading>
+<div class="zones-container" *ngIf="!isLoadingShow">
+
+    <div class="flex">
+        <label class="title-label">{{'objects'|translate}} ({{object_zones_DB.length}})</label>
+        <img title="Yenilə" (click)="refresh()">
+    </div>
+
+    <app-search-input (inputEvent)="searchInputEvent($event)"></app-search-input>
+
+
+    <hr class="horizontal-line">
+
+    <div class="flex-container">
+        <label class="not-find-text" *ngIf="object_zones_model.length==0 && object_zones_DB.length!=0">"{{searchText}}"
+            {{'searchText_not_find'|translate}}</label>
+        <mat-accordion class="common-zone-accordion" *ngIf="data_service.isAdminRole()">
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header [collapsedHeight]="'70px'" [expandedHeight]="'70px'">
+
+                    <mat-panel-title>
+                        <!-- <i class="car-icon" alt="" ></i> -->
+
+                        <div class="data-container">
+                            <div>
+                                <label class="serialNumber">{{'global_zones'|translate}}</label>
+                            </div>
+                        </div>
+                    </mat-panel-title>
+
+                </mat-expansion-panel-header>
+                <!-----------------------table ------------------------------------------------------>
+                <table>
+                    <tr>
+                        <th>№</th>
+                        <th>{{'allow'|translate}}</th>
+                        <th>{{'time_range'|translate}}</th>
+                        <th>{{'weekDays'|translate}}</th>
+                        <th>
+
+                            <div class="icon-container">
+                                <img [src]="data_service.head_eye_icon_id == 0 ? '../../../assets/images/eye_icon_red.svg' : '../../../assets/images/eye_icon_gray.svg'"
+                                    title="Bütün zonaları göstər" (click)="showAllZones(0)">
+                                <img src="../../../assets/images/add_icon_turqoise.svg"
+                                    (click)="createZone('commonZone')">
+                            </div>
+                        </th>
+                    </tr>
+                    <tr *ngFor="let zone of common_zones_db;trackBy: trackDataSource;index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{(zone.allow==true?'allowed':'forbid') | translate}}</td>
+                        <td>{{zone.fromHour}}-<br> {{zone.toHour}}</td>
+                        <td>{{zone.weekDays}}</td>
+                        <td>
+                            <div class="icon-container">
+                                <img [src]="data_service.eye_icon_id == zone.id ? '../../../assets/images/eye_icon_red.svg' : '../../../assets/images/eye_icon_black.svg'"
+                                    alt="" class="icon" (click)="clickEyeIcon(zone.id)">
+                                <img [src]="data_service.update_icon_id == zone.id?'../../../assets/images/edit_icon_red.svg':'../../../assets/images/edit_icon_black.svg'"
+                                    alt="" class="icon" (click)="updateZone(zone.id)">
+                                <img src="../../../assets/images/remove_icon_red.svg" alt="" class="icon"
+                                    (click)="deleteCommonZone(zone.id)">
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+                *ngFor="let object of object_zones_model;trackBy: trackDataSource">
+                <mat-expansion-panel-header [collapsedHeight]="'70px'" [expandedHeight]="'70px'">
+
+                    <mat-panel-title>
+                        <i class="object-icon" alt="" *ngIf="object.object_type==0"></i>
+                        <i class="person-icon" alt="" *ngIf="object.object_type==1"></i>
+                        <i class="car-icon" alt="" *ngIf="object.object_type==2"></i>
+
+                        <div class="data-container">
+                            <div>
+                                <label class="serialNumber">{{object.gps_seria_number}}</label>
+                                <label *ngIf="object.object_name!=null && object.object_name!=''"> {{" - "}}</label>
+                                <label class="objectName" *ngIf="object.object_name"
+                                    [matTooltip]="object.object_name.length>16?object.object_name:''">
+                                    {{object.object_name.length
+                                    <16?object.object_name:object.object_name.slice(0,16)+"..."}} </label>
+
+                            </div>
+                            <label class="objectDetails" *ngIf="object.object_details"
+                                [matTooltip]="object.object_details.length>20?object.object_details:''">
+                                {{object.object_details.length
+                                <20?object.object_details:object.object_details.slice(0,20)+"..."}} </label>
+                        </div>
+                    </mat-panel-title>
+
+                </mat-expansion-panel-header>
+                <table>
+                    <tr>
+                        <th>№</th>
+                        <th>{{'allow'|translate}}</th>
+                        <th>{{'time_range'|translate}}</th>
+                        <th>{{'weekDays'|translate}}</th>
+                        <th>
+                            <div class="icon-container">
+
+                                <img [src]="data_service.head_eye_icon_id == object.gps_id ? '../../../assets/images/eye_icon_red.svg' : '../../../assets/images/eye_icon_gray.svg'"
+                                    title="Bütün zonaları göstər" (click)="showAllZones(object.gps_id)">
+                                <img src="../../../assets/images/add_icon_turqoise.svg"
+                                    (click)="createZone(object.gps_id)">
+                            </div>
+                        </th>
+                    </tr>
+                    <tr *ngFor="let zone of object.zones;trackBy: trackDataSource;index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{(zone.allow==true?'allowed':'forbid') | translate}}</td>
+                        <td>{{zone.fromHour}}-<br> {{zone.toHour}}</td>
+                        <td>{{zone.weekDays}}</td>
+                        <td>
+                            <div class="icon-container">
+
+                                <img [src]="data_service.eye_icon_id == zone.id ? '../../../assets/images/eye_icon_red.svg' : '../../../assets/images/eye_icon_black.svg'"
+                                    alt="" class="icon" (click)="clickEyeIcon(zone.id)">
+                                <img [src]="data_service.update_icon_id == zone.id?'../../../assets/images/edit_icon_red.svg':'../../../assets/images/edit_icon_black.svg'"
+                                    alt="" class="icon" (click)="updateZone(zone.id)">
+                                <img src="../../../assets/images/remove_icon_red.svg" alt="" class="icon"
+                                    (click)="deleteZone(zone.id)">
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+
+
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

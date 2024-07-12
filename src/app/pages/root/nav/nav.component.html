@@ -1,0 +1,52 @@
+<!-- <div class="nav-container" (mouseenter)="changeSize(true)" (mouseleave)="changeSize(false)"> -->
+<div class="nav-container">
+
+  <div class="gps-logo-container"><img></div>
+
+
+  <div class="title-container">
+
+    <div routerLink="live" routerLinkActive="active" #live="routerLinkActive" (click)="routerModuleSize(live.isActive)"
+      class="card">
+      <div><img src="../../../../assets/images/live_data_icon_black.svg"></div>
+      <label>{{'live'|translate}}</label>
+    </div>
+
+    <div routerLink="users" routerLinkActive="active" *ngIf="active_role" #users="routerLinkActive" class="card"
+      (click)="routerModuleSize(users.isActive)">
+      <div> <img src="../../../../assets/images/users_icon.svg"> </div>
+      <label>{{'users'|translate}}</label>
+    </div>
+
+    <div routerLink="objects" routerLinkActive="active" #objects="routerLinkActive" class="card"
+      (click)="routerModuleSize(objects.isActive)">
+      <div> <img src="../../../../assets/images/object_icon_black.svg"> </div>
+      <label>{{'objects'|translate}}</label>
+    </div>
+
+    <div routerLink="zones" routerLinkActive="active" #zones="routerLinkActive" class="card"
+      (click)="routerModuleSize(zones.isActive)">
+      <div> <img src="../../../../assets/images/triangle_gray.png"> </div>
+      <label>{{'zones'|translate}}</label>
+    </div>
+
+    <div routerLink="trajectory" routerLinkActive="active" #trajectories="routerLinkActive" class="card"
+      (click)="routerModuleSize(trajectories.isActive)">
+      <div> <img src="../../../../assets/images/trajectory_icon.svg"> </div>
+      <label>{{'trajectories'|translate}}</label>
+    </div>
+
+    <div routerLink="events" routerLinkActive="active" #events="routerLinkActive" class="card"
+      (click)="routerModuleSize(events.isActive)">
+      <div> <img src="../../../../assets/images/event_icon.svg"> </div>
+      <label>{{'events'|translate}}</label>
+    </div>
+  </div>
+
+  <div class="logout-container">
+    <div (click)="logout()" class="card">
+      <div> <img src="../../../../assets/images/logout_icon.svg" class="icon"> </div>
+      <label>{{'logout'|translate}}</label>
+    </div>
+  </div>
+</div>

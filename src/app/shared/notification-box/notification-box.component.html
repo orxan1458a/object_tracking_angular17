@@ -1,0 +1,20 @@
+<div class="notifications-container" (click)="$event.stopPropagation();">
+    <div class="header">
+        <label (click)="zzz()">{{'notifications'|translate}}</label>
+    </div>
+    <hr>
+    <label *ngIf="data_service.allNotification.length==0">{{'there_is_no_notification'|translate}}</label>
+    <div class="body" *ngIf="data_service.allNotification.length!=0">
+        <div class="container" *ngFor="let notif of data_service.allNotification">
+            <img src="../../../../assets/images/notification_icon_white.svg" alt="">
+            <div class="text-container">
+                <label class="name">{{!notif.objectName ||
+                    notif.objectName.length==0?notif.gpsSerialNumber:notif.objectName}}</label>
+                <label
+                    class="event">{{data_service.getLanguage()=='az'?notif.text.text_az:notif.text.text_en}}</label>
+                <label class="time">{{notif.currentDateTime}}</label>
+            </div>
+
+        </div>
+    </div>
+</div>

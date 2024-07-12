@@ -1,0 +1,31 @@
+.search-input-container {
+    height: 56px;
+    background-color: #f6f6f6;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+
+    img {
+        height: 20px;
+        padding: 10px;
+    }
+
+    input {
+        height: 58px;
+        width: 100%;
+        border: none;
+        outline: none;
+        background: rgba(0, 0, 0, 0);
+
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+
+    .search-input-container {
+        height: 35px;
+    }
+}

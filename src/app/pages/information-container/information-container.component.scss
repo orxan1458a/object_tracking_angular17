@@ -1,0 +1,250 @@
+@import '../../../styles/colors.scss';
+
+.information-container {
+    padding: 10px;
+    height: 220px;
+    width: 100%;
+    color: #14183f;
+
+
+
+    h5 {
+        text-align: center;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .container {
+        background-color: #f6f6f6;
+        height: 100%;
+        width: calc(100% - 20px);
+        border-radius: 6px;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        gap: 5px;
+        overflow-x: auto;
+
+        .grid-con {
+            display: grid;
+            min-width: 1100px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 5px;
+            align-items: center;
+
+
+            .column {
+                background-color: white;
+                border-radius: 6px;
+                display: grid;
+                grid-template-columns: auto auto 1fr;
+                gap: 5px;
+                align-items: center;
+                justify-items: flex-end;
+                padding: 0 10px;
+                height: 100%;
+
+                img {
+                    height: 20px;
+                    width: 20px;
+                }
+
+                .user-icon {
+                    content: url('../../../assets/images/user_icon_gray.svg');
+                }
+
+                .status-icon {
+                    content: url('../../../assets/images/status_gray.svg');
+                }
+
+                .location-icon {
+                    content: url('../../../assets/images/location_icon_gray.svg');
+                }
+
+                .plate-number-icon{
+                    content: url('../../../assets/images/plate_number_gray.svg');
+                }
+                .accuracy-icon{
+                    content: url('../../../assets/images/accuracy_gray.png');
+                }
+                .speed-icon{
+                    content: url('../../../assets/images/speed_icon_black.svg');
+                }
+                .object-icon{
+                    content: url('../../../assets/images/object_icon_gray.svg');
+                }
+                .battery-icon{
+                    content: url('../../../assets/images/battery_status_gray.png');
+                }
+                .pitch-icon{
+                    content:url('../../../assets/images/pitch_icon_gray.svg')
+                }
+                .cellular-icon{
+                    content: url('../../../assets/images/cellular_gray.png');
+                }
+                .altitude-icon{
+                    content: url('../../../assets/images/altitude_icon_gray.svg');
+                }
+                .odometr-icon{
+                    content: url('../../../assets/images/odometer_icon_gray.svg');
+                }
+                .compas-icon{
+                    content: url('../../../assets/images/compas_icon_gray.png');
+                }
+                .satellite-icon{
+                    content: url('../../../assets/images/satellite_gray.png');
+                }
+            }
+        }
+
+        .daily-statistics {
+
+            background-color: white;
+            padding: 10px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 350px;
+            overflow-y: auto;
+
+
+
+            .body-con {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                div {
+                    display: grid;
+                    grid-template-columns: auto 1fr;
+                    justify-items: flex-end;
+                    border-radius: 6px;
+                    padding: 5px;
+
+                    &:nth-child(odd) {
+                        background-color: #f6f6f6;
+                    }
+                }
+            }
+
+
+        }
+
+        .recent-event {
+            background-color: white;
+            padding: 10px;
+            min-width: 400px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+
+            .header {
+                display: flex;
+                justify-content: space-between;
+
+                img {
+                    width: 20px;
+                    cursor: pointer;
+                    transition: 300ms;
+
+                    &:hover {
+                        scale: 1.1;
+                    }
+                }
+            }
+
+            .loading {
+                width: 130px;
+                height: 130px;
+                margin: auto;
+            }
+
+            .body-con {
+                display: grid;
+                grid-template-columns: 140px auto 1fr;
+                gap: 5px;
+                grid-column-gap: 10px;
+                align-items: center;
+                padding: 5px 0;
+                border-bottom: 1px solid #d2d2d2;
+
+
+                img {
+                    width: 15px;
+                    height: 15px;
+                    cursor: pointer;
+                }
+
+            }
+        }
+
+        .object-control {
+            background-color: white;
+            padding: 10px;
+            min-width: 260px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+
+            .body-con {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+
+                .input-con {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    input {
+                        border: none;
+                        outline: none;
+                        background-color: #f6f6f6;
+                        height: 40px;
+                        border-radius: 6px;
+                        width: 100%;
+                        padding-left: 10px;
+                    }
+
+                    img {
+                        border-radius: 6px;
+                        background-color: #f6f6f6;
+                        padding: 5px;
+                        width: 30px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.mat-menu-panel {
+    min-width: auto !important;
+    max-width: 855px !important;
+    overflow: hidden !important;
+}
+
+@media all and (min-width: 19in) {
+    .information-container {
+        height: 230px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .information-container {
+        height: 220px;
+
+        .container {
+            .grid-con {
+                min-width: 1000px;
+            }
+        }
+    }
+}

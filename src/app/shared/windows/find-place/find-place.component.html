@@ -1,0 +1,22 @@
+<div class="find-place-container" [style.display]="display ? 'block' : 'none'" cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane">
+  <div class="header" cdkDragHandle>
+    <span>{{'find_by_address' | translate}}</span>
+    <img src="../../../assets/images/close_icon_black.svg" alt="" class="search-close" (click)="closeWindow()" [title]="'close'|translate">
+  </div>
+
+  <hr>
+
+  <div class="body">
+    <div class="inputs-container">
+      <input type="text" class="search-box" autofocus (keydown.enter)="$event.preventDefault()" [(ngModel)]="searchText"
+        (ngModelChange)="onPlaceChange()" id="search-place" [placeholder]="'find_nearby_address'|translate"
+        autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+      <div class="button-container">
+        <button mat-raised-button color="warn" class="close-btn" (click)="deleteClick()">{{'delete'|translate}}</button>
+        <button mat-raised-button color class="search-btn" (click)="searchBtnClick()" id="search-btn"
+          [disabled]="!isSearchEnable">{{'search'|translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

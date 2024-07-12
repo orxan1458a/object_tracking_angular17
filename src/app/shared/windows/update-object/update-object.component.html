@@ -1,0 +1,66 @@
+<div class="container"> 
+    <div class="header">
+        <label>{{'object_info_refresh'|translate}}</label>
+        <img src="../../../assets/images/close_icon_black.svg" alt="" (click)="closeButton()">
+    </div>
+    <hr>
+
+
+    <div class="body-container">
+        <form [formGroup]="objectForm">
+            <div class="serialNumber-container">
+                <label class="label">{{'gps_serial_number'|translate}} :</label>
+                <label class="serialNumber">{{objectForm.value.gpsSerialNumber}}</label>
+            </div>
+            <hr>
+                <div class="inputs-container">
+                    <div class="input" *ngIf="isAdmin">
+                        <label>{{'user'|translate}}</label>
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{'users'|translate}}({{userList.length}})</mat-label>
+                            <mat-select formControlName="userId" >
+                                <mat-option [value]="0">{{'empty'|translate}}</mat-option>
+                                <mat-option *ngFor="let user of userList" [value]="user.userId">
+                                    {{user.username}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="input">
+                        <label>{{'object_type'|translate}} <span>*</span></label>
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{'types'|translate}}({{objectTypes.length}})</mat-label>
+                            <mat-select formControlName="objectType" >
+                                <mat-option *ngFor="let type of objectTypes" [value]="type[0]">
+                                    {{data_service.getLanguage()=='az'?type[1] : type[2]}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+        
+                    <div class="input">
+                        <label>{{'object_name'|translate}}</label>
+                        <input formControlName="objectName" [placeholder]="'enter_object_name'|translate" [ngClass]="{'isDirtyClass': dirtyCheck('objectName')}">
+                    </div>
+                    <div class="input">
+                        <label>{{'object_details'|translate}}</label>
+                        <input formControlName="objectDetails" [placeholder]="'enter_object_details'|translate" [ngClass]="{'isDirtyClass': dirtyCheck('objectDetails')}">
+                    </div>
+
+                    <div class="input">
+                        <label>{{'speed_limit'|translate}}</label>
+                        <input type="number" min="1" max="300" formControlName="speedLimit" [placeholder]="'enter_speed_limit'|translate"  
+                        [ngClass]="{'isDirtyClass': dirtyCheck('speedLimit')}">
+                    </div>
+                 
+                    
+                 
+       
+                    <div class="button-container">
+                        <button  mat-button color (click)="updateBtn()">{{'update'|translate}}</button>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>

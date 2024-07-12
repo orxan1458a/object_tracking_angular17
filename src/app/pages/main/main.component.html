@@ -1,0 +1,31 @@
+<div class="loading-container" *ngIf="isLoading">
+  <img src="../../../assets/images/main_loading.gif" alt="">
+</div>
+<div class="main-container" id="container" *ngIf="!isLoading">
+
+  <div class="nav">
+    <app-nav></app-nav>
+  </div>
+
+  <div class="header">
+    <app-header></app-header>
+  </div>
+
+  <div class="routing-component">
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="map_and_infobox">
+    <div class="map">
+      <app-map></app-map>
+    </div>
+    <div class="infobox" [hidden]="!info_container_display">
+      <app-information-container></app-information-container>
+    </div>
+
+    <div class="infobox" *ngIf="traject_info_container_display">
+      <app-trajectory-info-container></app-trajectory-info-container>
+    </div>
+  </div>
+
+</div>

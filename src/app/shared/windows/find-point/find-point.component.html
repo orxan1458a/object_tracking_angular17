@@ -1,0 +1,25 @@
+<div class="find-point-container" *ngIf="display" cdkDrag cdkDragRootElement=".cdk-overlay-pane">
+    <div class="header" cdkDragHandle>
+        <label>{{"find_by_latlng"|translate}}</label>
+        <img src="../../../assets/images/close_icon_black.svg" alt="" class="close-icon" [title]="'close'|translate"
+            (click)="closeWindow()">
+    </div>
+    <hr>
+    <div class="body">
+        <div class="inputs-container">
+            <div class="input">
+                <label for="latitude">{{"latitude"|translate}}</label>
+                <input type="number" id="latitude"  [placeholder]="'enter_longitude'|translate">
+            </div>
+            <div class="input"> 
+                <label for="longitude">{{"longitude"|translate}}</label>
+                <input type="number" id="longitude" [placeholder]="'enter_latitude'|translate">
+            </div>
+
+            <div class="button-container">
+                <button mat-raised-button  (click)="closeWindow()">{{"cancel"|translate}}</button>
+                <button mat-raised-button (click)="buttonClick()">{{"search"|translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

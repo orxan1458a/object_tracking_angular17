@@ -1,0 +1,173 @@
+@import '../../../styles/colors.scss';
+
+.custom-dialog-popup-menu {
+    width: calc(100% - 70px);
+    height: auto;
+    max-width: 100% !important;
+    border-radius: 10px;
+    overflow: hidden;
+
+    .mat-dialog-container {
+        padding: 0;
+
+        .popup-menu-container {
+            display: flex;
+            flex-direction: column;
+ 
+            .header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px solid #D9D9D9;
+                padding: 10px;
+
+                img {
+                    &:first-child {
+                        height: 30px;
+                    }
+
+                    &:last-child {
+                        height: 25px;
+                        width: 25px;
+                    }
+                }
+            }
+
+            .profil-data-con {
+                padding: 10px;
+                padding-bottom: 0;
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                grid-template-rows: 1fr 1fr;
+                align-items: center;
+                grid-column-gap: 6px;
+                grid-row-gap: 0px;
+
+                .user-icon {
+                    background-color: $main-color;
+                    width: 25px;
+                    height: 25px;
+                    padding: 10px;
+                    border-radius: 6px;
+                    grid-column: 1;
+                    grid-row: 1 / span 2;
+                }
+
+                .username {
+                    grid-column: 2;
+                    grid-row: 1;
+                    margin-top: 4px
+                }
+
+                .fullname {
+                    grid-column: 2;
+                    grid-row: 2;
+                    margin-bottom: 4px
+                }
+
+                .lng-con {
+                    grid-column: 3;
+                    grid-row: 1 / span 2;
+                    display: flex;
+                    gap: 10px;
+                    border: 1px solid #C6C6C6;
+                    border-radius: 10px;
+                    padding: 10px;
+                    align-items: center;
+
+                    .language {
+
+                        height: 30px;
+                    }
+
+                    .dropdown {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+            }
+
+            .tg-con {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px;
+                border-bottom: 1px solid #D9D9D9;
+                outline: none;
+
+
+                button {
+                    padding: 10px 20px;
+                    border-radius: 6px;
+                    background-color: $main-color;
+                    color: white;
+                    border: none;
+                }
+            }
+
+            .nav-con {
+                display: flex;
+                flex-direction: column;
+                padding: 10px;
+                border-bottom: 1px solid #D9D9D9;
+
+                .active {
+                    background-color: $main-color;
+                    color: white;
+                }
+
+                div {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+                    border-radius: 6px;
+                    padding: 10px;
+
+                    img {
+                        background-color: #f6f6f6;
+                        padding: 10px;
+                        border-radius: 6px;
+                        width: 20px;
+                        height: 20px;
+                    }
+
+                    span {
+                        font-size: 15px;
+                    }
+
+                    &:active {
+                        background-color: $main-color;
+                        color: white;
+                    }
+                }
+            }
+
+            .logout{
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                padding: 10px;
+                margin:10px;
+                border-radius: 6px;
+
+                img {
+                    background-color: #f6f6f6;
+                    padding: 10px;
+                    border-radius: 6px;
+                    width: 30px;
+                    height: 30px;
+                }
+
+                span {
+                    font-size: 15px;
+                }
+
+                &:active {
+                    background-color: $second-color;
+                    color: white;
+                }
+            }
+
+        }
+    }
+}

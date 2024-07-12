@@ -1,0 +1,56 @@
+@import '../../../styles/colors.scss';
+
+.mat-snack-bar-container {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 40px;
+    background-color: white;
+    height: auto;
+    border-radius: 10px;
+
+
+
+    .snackbar-container {
+        border-radius: 10px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        background-color: $main-color;
+        padding: 0;
+        padding: 20px;
+        border-radius: 10px;
+        align-items: center;
+
+
+        p {
+            margin: 0;
+
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            color: white;
+            text-align: center;
+            height: 100%;
+        }
+
+        img {
+            padding: 10px;
+            background-color: white;
+            border-radius: 6px;
+            width: 15px;
+        }
+
+
+
+    }
+
+    .positive {
+        background-color: $main-color;
+    }
+
+    .negative {
+        background-color: $second-color;
+    }
+
+}

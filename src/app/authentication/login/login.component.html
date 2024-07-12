@@ -1,0 +1,37 @@
+<div class="login-container">
+    <div class="left-container">
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+            <label class="title">Login</label>
+            <img src="../../../assets/images/gps_logo2.svg" class="logo">
+
+            <div class="input-container">
+                <label for="userName">{{'username'|translate}}</label>
+                <input type="text" ngModel name="userName" id="userName" [placeholder]="'enter_username'|translate">
+            </div>
+
+            <div class="input-container">
+                <label for="userPassword">{{'password'|translate}}</label>
+                <!-- <input type="password" [placeholder]="'enter_password'|translate" ngModel name="userPassword"
+                    id="userPassword"> -->
+
+
+                <div class="password-input">
+                    <input [placeholder]="'enter_password'|translate" type="password" ngModel name="userPassword"
+                        id="userPassword">
+                    <img id="eyeicon" src="../../../../assets/images/visible.png">
+                </div>
+            </div>
+
+            <div class="forgot_field">
+                <div class="remember-container">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">{{'remember'|translate}}</label>
+                </div>
+                <label class="forgotten">{{'forgot_password'|translate}}</label>
+            </div>
+
+            <button>{{'login'|translate}}</button>
+        </form>
+    </div>
+    <img src="../../../assets/images/login_picture.png" alt="">
+</div>

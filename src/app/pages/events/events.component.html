@@ -1,0 +1,151 @@
+<app-loading *ngIf="isSpinnerShow"></app-loading>
+<div class="events-container" *ngIf="!isSpinnerShow">
+    <div class="contain">
+        <div class="contain-top">
+            <div class="flex">
+                <label>{{'events'|translate}} ({{allEventCount}})</label>
+                <img (click)="exportExcel()"  class="export-icon">
+                <img (click)="headRemove()" [ngClass]="{headRemoveClass:deleted_event_id_list.length==this.dataSource.data.length}"
+                class="delete-icon">
+                <img title="Yenilə" (click)="refresh()" class="refresh-icon">
+            </div>
+            
+            <app-search-input (inputEvent)="searchInputEvent($event)"></app-search-input>
+
+            <div class="time-input-container">
+
+                <div class="ngx-mat-datetime-picker">
+                    <mat-form-field (click)="start_date.open()">
+                        <label>{{'start_date'|translate}}</label>
+                        <div>
+                            <span>{{startTimeActive==true? (startDate | date: 'HH:mm:ss dd/MM/yyyy'):'--:--:-- --/--/--'}}</span>
+                            <input hidden matInput [ngxMatDatetimePicker]="start_date" [value]="startDate"
+                                (dateChange)="changeStartDate($event)">
+                        </div>
+                        <mat-datepicker-toggle matSuffix [for]="$any(start_date)"></mat-datepicker-toggle>
+                        <ngx-mat-datetime-picker #start_date [showSpinners]="true"
+                            [showSeconds]="true"></ngx-mat-datetime-picker>
+                    </mat-form-field>
+                </div>
+
+                <div class="ngx-mat-datetime-picker">
+
+                    <mat-form-field (click)="end_date.open()">
+                        <label>{{'end_date'|translate}}</label>
+                        <div>
+                            <span>{{endTimeActive==true?(endDate | date: 'HH:mm:ss dd/MM/yyyy'):'--:--:-- --/--/--'}}</span>             
+                            <input matInput [ngxMatDatetimePicker]="end_date" hidden [value]="endDate"
+                            (dateChange)="changeEndDate($event)" readonly>
+                        </div>
+                        <mat-datepicker-toggle matSuffix [for]="$any(end_date)"></mat-datepicker-toggle>
+                        <ngx-mat-datetime-picker #end_date [showSpinners]="true"
+                        [showSeconds]="true"></ngx-mat-datetime-picker>
+                    </mat-form-field>
+                 </div>
+
+            </div>
+
+            <hr>
+
+            <div class="button-container">
+                <div (click)="exportExcel()">
+                    <img>
+                    <label>{{'export_excel'|translate}}</label>
+                </div>
+                <div (click)="headRemove()"
+                    [ngClass]="{headRemoveClass:deleted_event_id_list.length==this.dataSource.data.length}">
+                    <img>
+                    <label>{{'delete'|translate}}{{" ("+ dataSource.data.length+")"}}</label>
+                </div>
+
+            </div>
+
+            <div *ngIf="searchText.length>0 || startTimeActive==true || endTimeActive==true" class="close-search"
+                (click)="closeSearch()">
+                <label>Axtarışın
+                    nəticəsi</label>
+                <img src="../../../assets/images/close_icon.svg" alt="" class="close-search-icon">
+            </div>
+            <app-loading *ngIf="isTableSpinner"></app-loading>
+            <div class="grid-container" *ngIf="!isTableSpinner">
+
+
+                <div class="mat-elevation-z8" #TABLE>
+                    <table mat-table [dataSource]="dataSource" matSort>
+
+                        <!-- Time Column -->
+                        <ng-container matColumnDef="currentDateTime">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'time_and_date'|translate}}
+                            </th>
+                            <td mat-cell *matCellDef="let row" class="time-td"> 
+                                {{row.dateTime |date: 'HH:mm dd/MM/yyyy'}}
+                            </td>
+                        </ng-container>
+
+                        <!-- Name  Column -->
+                        <ng-container matColumnDef="firstName">
+                            <th mat-header-cell *matHeaderCellDef> {{'object'|translate}} </th>
+                            <td mat-cell *matCellDef="let row"> {{row.gpsSerialNumber}}{{row.objectName!="" &&
+                                row.objectName!=null?" - " + row.objectName:""}} </td>
+                        </ng-container>
+
+                        <!-- Event Column -->
+                        <ng-container matColumnDef="event">
+                            <th mat-header-cell *matHeaderCellDef> {{'events'|translate}} </th>
+                            <td mat-cell *matCellDef="let row;index as i">
+                                <div class="eventContain">
+                                    <img src="../../../assets/images/info_icon_blue.svg" alt=""
+                                    cdkMenuItem [cdkMenuTriggerFor]="info" (click)="eventInfo(row.event_id)">
+
+                                    <div>
+                                        {{row.eventText}}</div>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="delete">
+                            <th mat-header-cell *matHeaderCellDef> {{'delete'|translate}}</th>
+                            <td mat-cell *matCellDef="let row;index as i">
+                                <mat-slide-toggle (change)="deleteToggleButton($event,row.event_id)"
+                                    [checked]="deleted_event_id_list.includes(row.event_id)" [disabled]="false">
+                                </mat-slide-toggle>
+                            </td>
+                        </ng-container>
+
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                        <!-- Row shown when there is no matching data. -->
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">"{{searchText}}"-a uyğun məlumat tapılmadı </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="contain-bottom"
+            *ngIf="totalPages>1 && searchText.length<1 && startTimeActive==false && endTimeActive==false">
+            <label>{{pageNumber+' / '+totalPages+ ' Səhifə'}}</label>
+            <div class="arrow-container">
+                <img [src]="pageNumber==1?'../../../assets/images/left_disable_arrow_white.svg':'../../../assets/images/left_arrow_white.svg'"
+                    alt="" (click)="previousPage()" [ngClass]="pageNumber==1?'disablePageBtn':'enablePageBtn'">
+                <img [src]="totalPages==pageNumber?'../../../assets/images/right_disable_arrow_turqoise.svg':'../../../assets/images/right_arrow_white.svg'"
+                    alt="" (click)="nextPage()" [ngClass]="totalPages==pageNumber?'disablePageBtn':'enablePageBtn'">
+            </div>
+        </div>
+
+    </div>
+
+    <button [style.display]="deleted_event_id_list.length!=0 ?'block':'none'" class="delete-button"
+        (click)="deleteEvent()">
+        <img src="../../../assets/images/remove_icon_white.svg" alt="">
+        <label for="">{{'delete'|translate}}</label>
+
+    </button>
+
+</div>
+<ng-template #info >
+    <app-event-info-container [event_info]="event_info" cdkMenu></app-event-info-container >
+</ng-template>

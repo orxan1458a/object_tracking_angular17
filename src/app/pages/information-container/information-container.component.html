@@ -1,0 +1,156 @@
+<section class="information-container" *ngIf="object">
+    <div class="container">
+
+        <div class="grid-con">
+            <div class="column">
+                <img class="user-icon">
+                <label for="">{{'username' | translate}}</label>
+                <label>{{static_data && static_data.username?static_data.username:'not_assigned'|translate}}</label>
+            </div>
+            <div class="column">
+                <img class="status-icon">
+                <label for="">{{'device_status'|translate}}</label>
+                <label>{{object.connToGPS?"İşlək":"Əlaqə kəsilib"}}</label>
+            </div>
+            <div class="column">
+                <img class="location-icon">
+                <label for="">{{'location'|translate}}</label>
+                <label *ngIf="!object.latLonIsZero">{{ object.point[0] | number:'0.1-5'}}°,{{object.point[1] |
+                    number:'0.1-5'}}° </label>
+                <label *ngIf="object.latLonIsZero">{{'no_GPS'|translate}}</label>
+
+            </div>
+            <div class="column">
+                <img class="plate-number-icon" alt="">
+                <label for="">{{'device_serial_number'|translate}}</label>
+                <label>{{object.gpsNumber}}</label>
+            </div>
+            <div class="column">
+                <img class="accuracy-icon">
+                <label for="">{{'gps_accuracy'|translate}}</label>
+                <label>{{detailsData.accuracy}}</label>
+            </div>
+            <div class="column">
+                <img class="speed-icon">
+                <label>{{'speed'|translate}}</label>
+                <label>{{object.speed}} {{'speedUnit'|translate}}</label>
+            </div>
+            <div class="column">
+                <img class="object-icon">
+                <label for="">{{'objectName'|translate}}</label>
+                <label *ngIf="static_data"
+                    [matTooltip]="static_data.objectName">{{static_data.objectName?shortObjectName:'not_assigned'|translate}}</label>
+            </div>
+            <div class="column">
+                <img class="battery-icon">
+                <label for="">{{'device_battery_level'|translate}}</label>
+                <label>{{object.batteryPer}} %</label>
+            </div>
+            <!-- <div class="column">
+                <img class="pitch-icon">
+                <label for="">{{'angle'|translate}}</label>
+                <label>{{detailsData.angle}}°</label>
+            </div> -->
+
+            <div class="column">
+                <img class="compas-icon">
+                <label for="">{{'heading'|translate}}</label>
+                <label>{{detailsData.heading}}°</label>
+            </div>
+            <div class="column">
+                <img class="object-icon">
+                <label for="">{{'objectDetails'|translate}}</label>
+                <label *ngIf="static_data"
+                    [matTooltip]="static_data.objectDetails">{{static_data.objectDetails?shortObjectDetails:'not_assigned'|translate}}</label>
+            </div>
+            <!-- <div class="column">
+                <img class="altitude-icon">
+                <label for="">{{'height'|translate}}</label>
+                <label>{{detailsData.altitude+' m'}}</label>
+            </div> -->
+            <!-- <div class="column">
+                <img class="odometr-icon">
+                <label for="">Odometr</label>
+                <label>{{static_data?static_data.odometr:''}} m</label>
+            </div> -->
+
+
+            <div class="column">
+                <img class="cellular-icon">
+                <label>{{'gsm_signal_level'|translate}}</label>
+                <label>{{detailsData.gsmSignalLvl}} %</label>
+            </div>
+            <div class="column">
+                <img class="satellite-icon">
+                <label>{{'satellite_count'|translate}}</label>
+                <label>{{detailsData.satelliteCount}}</label>
+            </div>
+        </div>
+
+        <div class="daily-statistics">
+            <h5>{{'daily_statistics'|translate}}</h5>
+
+            <div class="body-con">
+                <div>
+                    <label class="gray">{{'route_length'|translate}}</label>
+                    <label class="gray">{{daily_statistics?(daily_statistics.routeLength | number:'1.1-3'):0}}
+                        km</label>
+                </div>
+                <!-- <div>
+
+                    <label>{{'move_duration'|translate}}</label>
+                    <label>{{daily_statistics?daily_statistics.moveDuration:'0 san'}}</label>
+                </div>
+                <div>
+                    <label class="gray">{{'stop_duration'|translate}}</label>
+                    <label class="gray">{{daily_statistics?daily_statistics.stopDuration:'0 san'}}</label>
+                </div> -->
+                <div>
+                    <label>{{'top_speed'|translate}}</label>
+                    <label>{{daily_statistics?daily_statistics.topSpeed:"0"}} {{'speedUnit'|translate}}</label>
+                </div>
+                <div>
+                    <label class="gray">{{'average_speed'|translate}}</label>
+                    <label class="gray">{{daily_statistics?daily_statistics.averageSpeed:"0"}}
+                        {{'speedUnit'|translate}}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="recent-event">
+            <div class="header">
+                <label class="device-panel">{{'Last_events'|translate}}</label>
+                <img src="../../../assets/images/refresh_icon.svg" alt="" (click)="getRecentEvent(gpsId)">
+            </div>
+
+            <img src="../../../assets/images/loading.gif" alt="" *ngIf="isRecentEventLoading" class="loading">
+
+            <div *ngIf="!isRecentEventLoading">
+                <div class="body-con" *ngFor="let event of recent_events">
+                    <label>{{event.dateTime| date:'HH:mm:ss dd/MM/yy'}}</label>
+                    <img src="../../../assets/images/info_icon_blue.svg" alt="" [matMenuTriggerFor]="aboveMenu"
+                        (click)="eventInfo(event.event_id)">
+                    <label> {{event.eventText}}</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="object-control">
+            <h5>{{"device_control_panel"|translate}}</h5>
+
+            <div class="body-con">
+                <label>{{'command'|translate}}</label>
+                <div class="input-con">
+                    <input type="text">
+                    <img src="../../../assets/images/send_icon_gray.png" alt="">
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+
+
+
+    <mat-menu yPosition="above" #aboveMenu="matMenu">
+        <app-event-info-container [event_info]="event_info"></app-event-info-container>
+    </mat-menu>

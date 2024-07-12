@@ -1,0 +1,20 @@
+<div class="profil-container" cdkMenu>
+    <div class="top-container">
+        <div class="fullname">
+            <img src="../../../../assets/images/user_circle_icon_white.svg" alt="">
+            <label>{{user.username}}</label>
+        </div>
+
+    </div>
+    <div class="tg-code-container">
+        <label class="telegram-description">{{'code_for_telegram' | translate}}:</label>
+        <div [cdkCopyToClipboard]="user.tg_token" (click)="openSnackBar()">
+            <img src="../../../../assets/images/copy_icon_white.svg">
+            <label>{{user.tg_token}}</label>
+        </div>
+    </div>
+
+    <button mat-button class="reset-password-button" (click)="resetPassword()">{{'change_password'|
+        translate}}</button>
+
+</div>

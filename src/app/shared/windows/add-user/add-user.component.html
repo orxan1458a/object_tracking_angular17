@@ -1,0 +1,59 @@
+<section class="add-user-container">
+    <div class="header">
+        <label>{{'add_user'|translate}}</label>
+        <img src="../../../assets/images/close_icon_black.svg" alt="" class="close-icon" (click)="closeWindow()">
+    </div>
+
+    <hr>
+
+    <div class="body">
+
+        <form [formGroup]="userForm">
+            <div class="inputs-container">
+                <div class="input-contain">
+                    <label>{{'name'|translate}}<span>*</span></label>
+                    <input formControlName="firstName" [placeholder]="'enter_name'|translate"
+                        [ngClass]="{'isDirtyClass': dirtyCheck('firstName')}">
+                </div>
+
+                <div class="input-contain">
+                    <label>{{'surname'|translate}}<span>*</span></label>
+                    <input formControlName="lastName" [placeholder]="'enter_surname'|translate"
+                        [ngClass]="{'isDirtyClass': dirtyCheck('lastName')}">
+                </div>
+
+                <div class="input-contain">
+                    <label>{{'username'|translate}}<span>*</span></label>
+                    <input formControlName="userName" [placeholder]="'enter_username'|translate" class="username-input"
+                        [ngClass]="{'isDirtyClass': dirtyCheck('userName')}">
+                </div>
+
+                <div class="input-contain">
+                    <label>{{'password'|translate}}<span>*</span></label>
+                    <div class="password-input">
+                        <input formControlName="password" [placeholder]="'enter_password'|translate" type="password" id="password"
+                        [ngClass]="{'isDirtyClass': dirtyCheck('password')}">
+                        <img id="eyeicon" src="../../../../assets/images/visible.png">
+                    </div>
+                </div>
+                <div class="input-contain">
+                    <label>{{'email'|translate}}<span>*</span></label>
+                    <input formControlName="email" [placeholder]="'enter_email'|translate" class="email-input"
+                        [ngClass]="{'isDirtyClass': dirtyCheck('email')}">
+                </div>
+
+                <div class="input-contain">
+                    <label>{{'phone_number'|translate}}<span>*</span></label>
+                    <div class="phone-container" [ngClass]="{'isDirtyClass': dirtyCheck('phoneNumber')}">
+                        <span>+994 &nbsp;</span>
+                        <input type="tel" matInput [mask]="'00-000-00-00'" placeholder="55-555-12-34"
+                            formControlName="phoneNumber">
+                    </div>
+                </div>
+
+                <app-button (onClickEmitter)="createButton()" [buttonText]="'add'|translate" [buttonColor]="'#02B9B1'"
+                     class="button-container"></app-button>
+            </div>
+        </form>
+    </div>
+</section>

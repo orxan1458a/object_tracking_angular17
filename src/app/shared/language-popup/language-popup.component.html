@@ -1,0 +1,5 @@
+<div class="language-container" cdkMenu (click)="changeLanguage()" cdkMenuItem>
+    <img [src]="language=='az'?'../../../../assets/images/england_flag.svg':'../../../assets/images/azerbaijan-flag.svg'"
+        alt="">
+    <label [innerText]="language=='az'?'Eng':'Az'">Eng</label>
+</div>

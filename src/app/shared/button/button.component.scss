@@ -1,0 +1,25 @@
+button {
+    border-radius: 6px;
+    width: 9rem;
+    height: 2.8rem;
+    min-height: 2.8rem;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: #bfbfbf !important;
+    color: white !important;
+}
+
+@media only screen and (max-width: 800px) {
+    button {
+
+        height: 40px;
+        min-height: 40px;
+    }
+}

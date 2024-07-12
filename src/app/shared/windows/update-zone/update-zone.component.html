@@ -1,0 +1,98 @@
+<div class="update-zone-container" cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+    *ngIf="data_service.update_icon_id!=-1">
+    <div class="header" cdkDragHandle>
+        <span *ngIf="data_service.update_icon_id==0">{{'create_zone'|translate}}</span>
+        <span *ngIf="![-1,0,2].includes(data_service.update_icon_id)">{{'update_zone'|translate}}</span>
+        <span *ngIf="data_service.update_icon_id==2">{{'create_common_zone'|translate}}</span>
+
+        <img src="../../../assets/images/close_icon_black.svg" alt="" class="close-icon" (click)="closeWindow()">
+    </div>
+    <hr>
+    <div class="body">
+        <form [formGroup]="zoneForm">
+
+            <div class="flex-column">
+                <div class="grid-container">
+                    <mat-radio-group aria-label="Select an option" (change)="changeRadioButton()"
+                        formControlName="isAllow" class="allow-input">
+                        <mat-radio-button #radioButton1 [value]="true" id="radiobtn1">
+                            {{'allowed_field'|translate}}
+                        </mat-radio-button>
+                        <mat-radio-button #radioButton2 [value]="false" id="radiobtn2">
+                            {{'forbidden_field'|translate}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                    <mat-form-field appearance="fill" class="weekDays">
+                        <mat-label>{{'week_days'|translate}}</mat-label>
+                        <mat-select multiple formControlName="weekDays">
+                            <mat-option *ngFor="let day of weekDaysList; let i = index" [value]="i+1">{{day}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <input placeholder="24hr format" matTimepicker [ngxTimepicker]="_fromHour" [format]="24" #fromHour
+                        formControlName="fromHour">
+                    <ngx-material-timepicker #_fromHour></ngx-material-timepicker>
+                    <input placeholder="24hr format" matTimepicker [ngxTimepicker]="_toHour" [format]="24" #toHour
+                        formControlName="toHour">
+                    <ngx-material-timepicker #_toHour></ngx-material-timepicker>
+
+                </div>
+
+                <div class="table-container" id="scroll-table" *ngIf="dataSource.data.length!=0">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                        <!--- Note that these columns can be defined in any order.
+                      The actual rendered columns are set as a property on the row definition" -->
+
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="№">
+                            <th mat-header-cell *matHeaderCellDef> № </th>
+                            <td mat-cell *matCellDef="let element;let i = index"> {{i+1}} </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="Coğrafi enlik">
+                            <th mat-header-cell *matHeaderCellDef> {{'latitude'|translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.latitude}} </td>
+                        </ng-container>
+
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="Coğrafi uzunluq">
+                            <th mat-header-cell *matHeaderCellDef> {{'longitude'|translate}} </th>
+                            <td mat-cell *matCellDef="let element"> {{element.longitude }} </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="Sil">
+                            <th mat-header-cell *matHeaderCellDef> </th>
+                            <td mat-cell *matCellDef="let element">
+                                <label>{{'delete'|translate}}</label>
+                                <img src="../../../assets/images/remove_icon_red.svg"
+                                    (click)="deleteColumn(element.id)">
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+
+                <div class="info-text" [style.visibility]="info_text_show?'visible':'hidden'">
+                    <img src="../../../assets/images/information_icon_turqoise.svg" alt="">
+                    <label>{{'click_map_for_add_zone'|translate}}</label>
+                </div>
+
+                <div class="button-container">
+                    <button mat-button color id="confirm-btn" *ngIf="![-1,0,2].includes(data_service.update_icon_id)"
+                        (click)="updateBtn()">{{'update'|translate}}</button>
+                    <button mat-button color id="confirm-btn" *ngIf="[0,2].includes(data_service.update_icon_id)"
+                        (click)="createBtn()">{{'add'|translate}}</button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

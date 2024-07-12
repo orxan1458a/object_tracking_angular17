@@ -1,0 +1,164 @@
+@import '../../../../styles/colors.scss';
+
+.custom-dialog-update-car .mat-dialog-container {
+    padding: 0;
+    background-color: #f6f6f6;
+    border-radius: 10px;
+
+    .container {
+        background-color: #f6f6f6;
+        color: white;
+        user-select: none;
+        cursor: default;
+        border: 1px solid #aacff2;
+        padding: 25px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        font-family: 'Poppins';
+        font-style: normal;
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            label {
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 18px;
+                color: #14183F;
+            }
+
+            img {
+                cursor: pointer;
+            }
+        }
+
+        hr {
+            border: 1px solid #D9D9D9;
+            width: 100%;
+        }
+
+        .body-container {
+
+            height: auto;
+            width: 40rem;
+            background-color: white;
+            padding: 20px;
+
+            .serialNumber-container {
+                color: #14183F;
+
+                .label {
+                    font-size: 14px;
+                    margin-right: 10px;
+                }
+
+                .result {
+                    font-size: 18px;
+                }
+
+            }
+
+            .inputs-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr 1fr auto;
+                gap: 20px;
+
+                .input {
+                    display: flex;
+                    flex-direction: column;
+
+                    label {
+                        color: black;
+                        font-weight: 500;
+                        font-size: 14px;
+
+                        span {
+                            color: $second-color;
+                        }
+                    }
+
+                    .isDirtyClass {
+                        border: 1px solid $second-color !important;
+                        border-radius: 6px;
+                    }
+
+                    input {
+                        height: 50px;
+                        border: none;
+                        outline: none;
+                        background-color: #f6f6f6;
+                        border-radius: 6px;
+                        padding-left: 10px;
+                        font-family: 'Poppins';
+                        font-style: normal;
+                        font-size: 0.8rem
+                    }
+                }
+
+                .button-container {
+                    grid-column: 2;
+                    grid-row: 4;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: flex-end;
+
+                    button {
+                        background-color: $main-color;
+                        border: none;
+                        outline: none;
+                        height: 2.5rem;
+                        width: 8rem;
+                        border-radius: 6px;
+                        color: white;
+                        cursor: pointer;
+                    }
+
+                    button:hover {
+                        background-color: #018d86;
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (max-width: 800px) {
+        .container {
+            padding: 10px;
+            gap: 5px;
+            .header{
+                label{
+                    font-size: 17px;
+                }
+            }
+
+            hr{
+                margin: 0;
+            }
+
+            .body-container{
+                width: calc(100% - 30px);
+                padding: 15px;
+
+                .inputs-container{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+
+                    input{
+                        height: 40px !important;
+                    }
+                }
+
+                .button-container{
+                    margin-top: 15px;
+                }
+            }
+        }
+    }
+}

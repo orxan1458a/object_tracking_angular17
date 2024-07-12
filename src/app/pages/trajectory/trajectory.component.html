@@ -1,0 +1,55 @@
+<app-loading *ngIf="isLoadingShow"></app-loading>
+<div class="trajectory-container" *ngIf="!isLoadingShow">
+
+    <div class="flex">
+        <label class="drivers-label">{{'trajectories'|translate}}</label>
+        <img [src]="'../../../assets/images/refresh_icon.svg'" alt="" class="icon" title="Yenilə" (click)="refresh()">
+    </div>
+    <label class="not-find-text" *ngIf="fullNameModel.length==0 && fullNameDB.length!=0">"{{searchText}}"
+        {{'searchText_not_find'|translate}}</label>
+    <div class="flex-container">
+
+        <form [formGroup]="dateTimeForm">
+            <div class="input-container">
+                <div class="device-list">
+                    <mat-form-field appearance="fill">
+
+                        <mat-label>{{'Devices'|translate}}({{fullNameDB.length}})</mat-label>
+                        <mat-select [(value)]="selected_device_id">
+                            <mat-option *ngFor="let data of fullNameModel" [value]="data.gpsId">
+                                <img class="complete_icon_black"
+                                    [src]="data.gpsId==selected_device_id?'../../../assets/images/complete_icon_black.svg':'../../../assets/images/ellipse_gray.svg'">
+                                {{data.gpsSerialNumber+ " "+(data.objectName!=null?'('+data.objectName+')':"")}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="date-input">
+                    <mat-form-field>
+                        <mat-label>Day</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="date">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+
+                <input placeholder="24hr format" aria-label="24hr format" [ngxTimepicker]="fullTime" [format]="24"
+                    readonly>
+                <ngx-material-timepicker #fullTime></ngx-material-timepicker>
+
+                <input placeholder="24hr format" aria-label="24hr format" [ngxTimepicker]="fullTime" [format]="24"
+                    readonly>
+                <ngx-material-timepicker #fullTime></ngx-material-timepicker>
+
+                <!-- <button class="button" (click)="getTrajectory(data.gpsId)">Search</button> -->
+                <button class="button" (click)="getTrajectory(selected_device_id)">{{'search'|translate}}</button>
+                <button class="cancel-btn" (click)="cancel()">Ləğv et</button>
+
+            </div>
+            <app-loading *ngIf="isTrajectoryLoading"></app-loading>
+
+        </form>
+    </div>
+</div>

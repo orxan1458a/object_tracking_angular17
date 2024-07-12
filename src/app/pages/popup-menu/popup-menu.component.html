@@ -1,0 +1,62 @@
+<section class="popup-menu-container">
+    <div class="header">
+        <img src="../../../assets/images/gps_logo3.svg" alt="">
+        <img src="../../../assets/images/close_icon_black.svg" alt="" (click)="dialogRef.close()">
+    </div>
+    <div class="profil-data-con">
+        <img src="../../../assets/images/user_circle_icon_white.svg" class="user-icon">
+        <label class="username">{{user.username}}</label>
+        <label class="fullname">{{user.name +' '+user.surName}} </label>
+        <div class="lng-con">
+            <img [src]="language=='eng'?'../../../../assets/images/england_flag.svg':'../../../assets/images/azerbaijan-flag.svg'" 
+            [cdkMenuTriggerFor]="languageMenu" class="language">
+            <img src="../../../assets/images/dropdown_bottom.svg" alt="" class="dropdown">
+        </div>
+    </div>
+    <div class="tg-con">
+        <label>Tg üçün kod :</label>
+        <button [cdkCopyToClipboard]="user.tg_token" (click)="openSnackBar()">
+            <img src="../../../assets/images/copy_icon_white.svg">
+            <span>{{user.tg_token}}</span>
+        </button>
+    </div>
+
+
+    <div class="nav-con">
+        <div routerLink="live" routerLinkActive="active" #live="routerLinkActive" (click)="visibleRoute()">
+            <img src="../../../assets/images/live_data_icon_black.svg">
+            <span>Canlı izlə</span>
+        </div>
+        <div routerLink="users" routerLinkActive="active" *ngIf="isAdmin" #users="routerLinkActive" (click)="visibleRoute()">
+            <img src="../../../assets/images/user_icon_black.svg">
+            <span>İstifadəcilər</span>
+        </div>
+        <div routerLink="objects" routerLinkActive="active" #objects="routerLinkActive" (click)="visibleRoute()">
+            <img src="../../../assets/images/object_icon_black.svg">
+            <span>Obyektler</span>
+        </div>
+        <div routerLink="zones" routerLinkActive="active" #zones="routerLinkActive" (click)="visibleRoute()">
+            <img src="../../../assets/images/triangle_gray.png">
+            <span>Zonalar</span>
+        </div>
+        <div routerLink="trajectory" routerLinkActive="active" #trajectories="routerLinkActive" (click)="visibleRoute()">
+            <img src="../../../assets/images/trajectory_icon.svg"  >
+            <span>Trayektoriyalar</span>
+        </div>
+        <div routerLink="events" routerLinkActive="active" #events="routerLinkActive" (click)="visibleRoute()">
+            <img src="../../../assets/images/live_data_icon_black.svg">
+            <span>Hadiseler</span>
+        </div>
+    </div>
+
+    <div class="logout" (click)="logout()">
+        <img src="../../../assets/images/logout_icon.svg">
+        <span>{{'logout'|translate}}</span>
+    </div>
+
+
+    
+    <ng-template #languageMenu>
+        <app-language-popup [language]="language"></app-language-popup>
+    </ng-template>
+</section>

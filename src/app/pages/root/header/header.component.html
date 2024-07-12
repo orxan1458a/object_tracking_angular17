@@ -1,0 +1,52 @@
+<section class="header-container">
+
+    <div class="left-container">
+        <img src="../../../../assets/images/gps_logo3.svg" alt="" class="logo3">
+
+        <div>
+            <button mat-stroked-button (click)="findPointDisplay()">
+                <span>
+                    {{'find_by_latlng' | translate}}
+                </span>
+            </button>
+            <button mat-stroked-button (click)="findAddressDisplay()">
+                <span>
+                    {{'find_by_address' | translate}}
+                </span>
+            </button>
+
+            <hr>
+            <img src="../../../../assets/images/dropdown_black.svg" class="dropdown" (click)="clickDropdown()">
+        </div>
+    </div>
+
+    <div class="right-container">
+
+        <div [matBadge]="data_service.allNotificationsSize" matBadgeColor="warn" [matMenuTriggerFor]="notificationsMenu"
+            (click)="notificationListDelete()">
+            <img src="../../../../assets/images/isnotification_icon_white.svg" alt="">
+        </div>
+
+        <div [matMenuTriggerFor]="profilMenu">
+            <label>{{user.name}} <br> {{user.surName}}</label>
+            <img src="../../../assets/images/user_circle_icon_white.svg" alt="">
+        </div>
+        <div>
+            <img [src]="language=='eng'?'../../../../assets/images/england_flag.svg':'../../../assets/images/azerbaijan-flag.svg'"
+                alt="" [cdkMenuTriggerFor]="languageMenu">
+        </div>
+
+    </div>
+
+    <mat-menu #notificationsMenu="matMenu" xPosition="before">
+        <app-notification-box></app-notification-box>
+    </mat-menu>
+
+    <mat-menu #profilMenu="matMenu" xPosition="before">
+        <app-profil-menu-box [user]="user"></app-profil-menu-box>
+    </mat-menu>
+
+    <ng-template #languageMenu>
+        <app-language-popup [language]="language"></app-language-popup>
+    </ng-template>
+</section>

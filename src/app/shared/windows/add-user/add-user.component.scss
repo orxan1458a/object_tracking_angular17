@@ -1,0 +1,182 @@
+@import '../../../../styles/colors.scss';
+
+.custom-dialog-add-user .mat-dialog-container {
+    background-color: #f6f6f6;
+    padding: 0;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    color: #14183F;
+
+    .add-user-container {
+        display: flex;
+        flex-direction: column;
+        background-color: #f6f6f6;
+        width: 50rem;
+        padding: 25px;
+
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+
+            label {
+                color: #14183F;
+            }
+
+            img {
+                cursor: pointer;
+            }
+        }
+
+        hr {
+            border: 1px solid #d9d9d9;
+            width: auto;
+            width: 100%;
+            margin: 0;
+        }
+
+        .body {
+            padding: 25px;
+
+            .inputs-container {
+                padding: 20px;
+                background-color: white;
+                border-radius: 6px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr 1fr 1fr;
+                gap: 20px;
+
+                .input-contain {
+                    display: flex;
+                    flex-direction: column;
+
+                    label {
+                        font-weight: 500;
+
+                        span {
+                            color: $second-color;
+                            font-family: 'Open Sans', sans-serif;
+                        }
+
+                    }
+
+                    input {
+                        border: 1px solid transparent;
+                        outline: none;
+                        background-color: #f6f6f6;
+                        height: 3rem;
+                        border-radius: 6px;
+                        padding-left: 10px;
+                        font-size: 16px;
+                        text-transform: capitalize;
+
+                        &::placeholder {
+                            font-family: 'Poppins';
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 14px;
+                            color: #B8B8B8;
+                        }
+                    }
+
+                    .email-input {
+                        text-transform: lowercase;
+                    }
+
+                    .username-input {
+                        text-transform: lowercase;
+                    }
+
+                    .password-input {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        background-color: #f6f6f6;
+                        border: 1px solid transparent;
+                        border-radius: 6px;
+                        position: relative;
+
+                        input {
+                            width: 100%;
+                            text-transform: none;
+                        }
+
+                        img {
+                            width: 20px;
+                            height: 20px;
+                            cursor: pointer;
+                            position: absolute;
+                            right: 15px;
+                        }
+
+                    }
+
+                    .phone-container {
+                        padding-left: 10px;
+                        display: flex;
+                        background-color: #f6f6f6;
+                        border: 1px solid transparent;
+                        border-radius: 6px;
+                        align-items: baseline;
+                        height: 3rem;
+                        overflow: hidden;
+
+                        input {
+                            padding-left: 0;
+                        }
+                    }
+                }
+
+                .button-container {
+                    grid-row: 4;
+                    grid-column: 2;
+                    display: flex;
+                    align-items: flex-end;
+                    justify-content: right;
+                }
+            }
+        }
+    }
+
+    .inputs-container .isDirtyClass {
+        border: 1px solid $second-color !important;
+        border-radius: 6px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .add-user-container {
+        width: calc(100% - 20px) !important;
+        padding: 10px !important;
+
+        .header {
+            margin-bottom: 10px !important;
+        }
+
+        .body {
+            padding: 10px 0 !important;
+
+            .inputs-container {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 5px !important;
+
+                input {
+                    height: 35px !important;
+                }
+
+                .phone-container {
+                    height: 35px !important;
+                }
+            }
+
+            .button-container {
+                margin-top: 15px !important;
+            }
+        }
+    }
+}

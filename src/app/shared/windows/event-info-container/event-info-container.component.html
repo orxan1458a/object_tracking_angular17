@@ -1,0 +1,47 @@
+<div class="event-info-window-container">
+    <div class="header">
+        <img src="../../../assets/images/info_icon_blue.svg" alt="">
+        <label>Məlumat pəncərəsi</label>
+        <!-- <img src="../../../assets/images/close_icon_black.svg" title="Pəncərəni bağla" (click)="info"> -->
+    </div>
+    <div class="body">
+        <div class="left-container">
+            <label>{{'gpsSerialNumber'|translate}}</label>
+            <label>{{'objectName'|translate}}</label>
+            <label>{{'objectDetails'|translate}}</label>
+            <label>{{'latitude'|translate}}</label>
+            <label>{{'longitude'|translate}}</label>
+            <label>{{'speed'|translate}}</label>
+            <label>{{'heading'|translate}}</label>
+            <label>{{'Event'|translate}}</label>
+            <label>{{'address'|translate}}</label>
+            <label>{{'time'|translate}}</label>
+            <label>{{'date'|translate}}</label>
+            <label>{{'satellite_count'|translate}}</label>
+            <label>{{'gsm_signal_level'|translate}}</label>
+            <label>{{'device_battery_level'|translate}}</label>
+            
+
+            
+
+            <label>{{event_info.gpsNumber}}</label>
+            <label>{{event_info.objName?event_info.objName:'not_assigned'|translate}}</label>
+            <label>{{event_info.objDetails?event_info.objDetails:'not_assigned'|translate}}</label>
+            <label>{{event_info.point[0]}}</label>
+            <label>{{event_info.point[1]}}</label>
+            <label>{{event_info.speed+' '}}{{'speedUnit'|translate}}</label>
+            <label>{{event_info.eventText}}</label>
+            <label>{{event_info.address}}</label>
+            <label>{{event_info.heading}}</label>
+            <label>{{event_info.time | date: 'HH:mm:ss'}}</label>
+            <label>{{event_info.time | date: 'dd/MM/yyyy'}}</label>
+            <label>{{event_info.satelliteCount}}</label>
+            <label>{{event_info.gsmSignalLvl+ " %"}}</label>
+            <label>{{event_info.batteryLvl+ " %"}}</label>
+
+
+        </div>
+
+        <img [src]="event_info.imageUrl" alt="" class="right-container" *ngIf="event_info.imageUrl">
+    </div>
+</div>

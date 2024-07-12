@@ -1,0 +1,213 @@
+.loading-container {
+    height: 100%;
+    width: 100%;
+    background-color: #54BAB3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                        supported by Chrome, Edge, Opera and Firefox */
+
+    img {
+        width: 600px;
+        height: 450px;
+    }
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: auto 400px 1fr;
+    grid-template-rows: auto 1fr 150px;
+    margin: 0;
+    /* olculerde problem olur */
+    gap: 20px;
+    height: calc(100% - 40px);
+    transition: all 400ms ease;
+    padding: 20px;
+    background-color: #f6f6f6;
+
+    .nav,
+    .header,
+    .routing-component,
+    .map,
+    .infobox {
+        border-radius: 10px;
+        background-color: white;
+        overflow: hidden;
+        box-sizing: border-box;
+        box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+
+    }
+
+    .nav {
+        grid-row: 1 / span 3;
+    }
+
+    .header {
+        grid-column: 2 / span 2;
+    }
+
+
+    .map_and_infobox {
+
+        grid-column: 3 / span 1;
+        grid-row: 2 / span 2;
+
+        display: grid;
+        grid-template-rows: 100% 0px;
+        gap: 20px;
+
+        .map {
+            position: relative;
+        }
+
+    }
+
+    .routing-component {
+        grid-column: 2;
+        grid-row: 2 / span 2;
+    }
+
+}
+
+.main-container.hover-active {
+    grid-template-columns: 250px 400px 1fr;
+}
+
+.main-container.router-active {
+
+    grid-template-columns: auto 0 1fr;
+    grid-template-rows: auto 1fr 150px;
+    column-gap: 10px;
+
+    // .map_and_infobox {
+    //     grid-column: 2 / span 2;
+    //     grid-row: 2 / span 2;
+    // }
+
+    .header{
+        margin-left: 10px;
+    }
+    .routing-component {
+        display: none;
+    }
+}
+
+.main-container.info-container-active {
+    .map_and_infobox {
+        grid-template-rows: 1fr auto;
+    }
+}
+
+.main-container.trajectory-info-container-active {
+    .map_and_infobox {
+        grid-template-rows: 1fr auto;
+    }
+}
+
+
+
+
+
+@media all and (min-width: 19in) {
+    .main-container {
+        grid-template-columns: auto 400px 1fr;
+        grid-template-rows: 70px 1fr 250px;
+    }
+
+    .main-container.hover-active {
+        grid-template-columns: 23vh 400px 1fr;
+    }
+
+    .middle-part-icon {
+        width: 0rem;
+        height: 0rem;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+
+    .loading-container {
+        img {
+            width: 300px;
+            height: 225px;
+        }
+    }
+
+    .main-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 30vh 1fr;
+        row-gap: 10px;
+        column-gap: 0;
+        height: calc(100% - 40px);
+        padding: 10px;
+
+        .header {
+            grid-column: 1;
+        }
+
+        .nav {
+            display: none !important;
+        }
+
+        .routing-component {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .map_and_infobox {
+            grid-column: 1;
+            grid-row: 3 / span 1;
+        }
+
+
+
+    }
+
+    .main-container.router-active {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 0vh 1fr;
+        row-gap: 5px;
+
+        // .map_and_infobox {
+        //     grid-column: 1;
+        //     grid-row: 2 / span 2;
+        // }
+
+        .header{
+            margin-left: 0;
+        }
+
+        .routing-component {
+            height: 0;
+        }
+    }
+
+    .main-container.info-container-active {
+        // grid-template-rows: auto 0 1fr;
+
+        // .map_and_infobox {
+        //     grid-template-rows: 1fr auto;
+        // }
+    }
+
+    .main-container.trajectory-info-container-active {
+        // grid-template-rows: auto 0 1fr;
+
+        // .map_and_infobox {
+        //     grid-template-rows: 1fr auto;
+        // }
+    }
+}

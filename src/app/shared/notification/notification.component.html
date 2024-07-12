@@ -1,0 +1,21 @@
+<div class="notification-container">
+    <div *ngFor="let notification of openedNotification;let i=index" [@openClose]="notification.isOpen">
+        <div class="notif-container">
+            <img src="../../../assets/images/notification_icon_white.svg" alt="icon" class="icon">
+            <div class="right-container">
+                <div class="right-field">
+                    <label class="full">
+                        {{notification.res.gpsSerialNumber}}
+                        {{notification.res.objectName != "" ? ("-" + notification.res.objectName) : ""}}</label>
+                    <img src="../../../assets/images/x_icon_black.svg" class="close-icon"
+                        (click)="notification.isOpen = false">
+                </div>
+                <div class="right-field">
+                    <label
+                        class="event-text">{{language=='az'?notification.res.text.text_az:notification.res.text.text_en}}</label>
+                    <label class="time">{{notification.res.currentDateTime}} </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

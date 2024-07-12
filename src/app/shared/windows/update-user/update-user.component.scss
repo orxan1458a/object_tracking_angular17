@@ -1,0 +1,152 @@
+@import '../../../../styles/colors.scss';
+
+.update-user-dialog .mat-dialog-container {
+    background-color: #f6f6f6;
+    padding: 0;
+    font-family: 'Poppins';
+    font-style: normal;
+    color: #14183F;
+    width: 50rem;
+
+    .update-user-container {
+        display: flex;
+        flex-direction: column;
+        padding: 25px;
+        font-family: 'Poppins';
+        font-style: normal;
+        gap: 20px;
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #14183F;
+
+            img {
+                cursor: pointer;
+            }
+        }
+
+        hr {
+            width: 100%;
+            border: 1px solid #d9d9d9;
+            margin: 0;
+        }
+
+        .body {
+
+            .grid-container {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                .inputs-container {
+                    padding: 15px;
+                    background-color: white;
+                    border-radius: 6px;
+
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 20px;
+
+                    .input-contain {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 5px;
+
+                        input {
+                            box-sizing: border-box;
+                            height: 3rem;
+                            border: none;
+                            outline: none;
+                            background-color: #f6f6f6;
+                            padding-left: 10px;
+                            border-radius: 6px;
+                            font-size: 1rem;
+                            font-family: 'Poppins';
+                            font-style: normal;
+
+                        }
+
+                        div {
+                            display: flex;
+                            background-color: #f6f6f6;
+                            border-radius: 6px;
+                            align-items: center;
+                        }
+
+                        .phoneCont {
+                            display: grid;
+                            grid-template-columns: auto 1fr;
+                            padding-left: 10px;
+                            font-family: 'Poppins';
+                            font-style: normal;
+
+                            span {
+                                margin: auto 0;
+                            }
+                        }
+                    }
+
+                    .btn-contain{
+                        margin-top: 15px;
+                        grid-column: 2;
+                    }
+                }
+
+                .table-contain {
+                    background-color: white;
+                    border-radius: 6px;
+                    padding: 0px 15px 15px 15px;
+                    overflow-y: auto;
+                    height: 14rem;
+
+
+                    .change_icon {
+                        margin: auto;
+                        display: flex;
+                        background-color: white;
+                        border: 1px solid $main-color;
+                        padding: 10px;
+                        border-radius: 6px;
+                    }
+                }
+
+                .button-container {
+                    grid-column: 2;
+                    display: flex;
+                    justify-content: right;
+
+                }
+            }
+        }
+
+    }
+    
+    @media only screen and (max-width: 800px) {
+    .update-user-container {
+        padding: 10px;
+        gap: 5px;
+
+        .body {
+
+            padding: 10px 0 !important;
+            .inputs-container {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 5px !important;
+
+                input {
+                    height: 40px !important;
+                }
+            }
+        }
+    }
+}
+}
+
+.inputs-container .isDirtyClass {
+    border: 1px solid $second-color !important;
+    border-radius: 6px;
+}
+

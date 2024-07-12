@@ -1,0 +1,203 @@
+@import '../../../styles/colors.scss';
+
+.cars-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: calc(100% - 25px);
+    font-family: "Poppins";
+    font-style: normal;
+
+    .flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        label {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 27px;
+        }
+
+
+
+        img {
+            padding: 10px;
+            width: 20px;
+            height: 20px;
+            outline: 1px solid $main-color;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 300ms;
+            content: url(../../../assets/images/refresh_icon.svg);
+
+            &:hover {
+                background-color: $main-color;
+                content: url(../../../assets/images/refresh_icon_white.svg)
+            }
+        }
+
+    }
+
+    /*  */
+    /* add car button */
+    .add-car-button {
+        width: 100%;
+        height: 58px;
+        border-radius: 6px;
+        border: 1px solid $main-color;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        color: $main-color;
+        cursor: pointer;
+        transition: all 300ms;
+
+        &:hover {
+            background-color: $main-color;
+            color: white;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+    }
+
+    hr {
+        border-bottom: 1px solid #D9D9D9;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        width: 100%;
+    }
+
+    .select-user-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+
+        .mat-form-field {
+            // box-shadow: rgb(0 0 0 / 2%) 0px 1px 3px 0px, rgb(27 31 35 / 15%) 0px 0px 0px 1px;
+        }
+    }
+
+    .label {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        color: #14183F;
+    }
+
+
+    .contain {
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 0;
+        gap: 10px;
+        margin-right: -5px;
+
+        .car_field {
+            background-color: #f6f6f6;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: 50px 1fr auto;
+            grid-template-rows: auto;
+            gap: 10px;
+            align-items: center;
+            border-radius: 6px;
+            margin-right: 5px;
+
+            .car-icon {
+                height: 30px;
+                width: 30px;
+                padding: 10px;
+                background-color: white;
+                border-radius: 1px;
+            }
+
+            .fullname-container {
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 18px;
+                color: #14183F;
+                display: flex;
+                flex-direction: column;
+
+                .gpsSerialNumber {
+                    font-weight: 600;
+                }
+
+                .objectName {
+                    color: $main-color;
+                }
+            }
+
+            .icon-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .icon {
+                    height: 20px;
+                    cursor: pointer;
+
+                    &:nth-child(3) {
+                        width: 20px;
+                        height: 20px;
+                        background-color: $main-color;
+                        border-radius: 6px;
+                        padding: 5px;
+                    }
+                }
+
+
+                .vertical-line {
+                    border-bottom: 1px solid gray;
+                    transform: rotate(90deg);
+                    width: 15px;
+
+                }
+
+            }
+        }
+
+
+    }
+
+}
+
+@media only screen and (max-width: 800px) {
+    .cars-container {
+        overflow-y: auto;
+
+        gap: 5px;
+
+        .select-user-container {
+            margin: 0;
+        }
+
+        .contain {
+            gap: 5px;
+            overflow-y: visible;
+
+
+            .car_field {
+                .car-icon {
+                    width: 20px;
+                    height: 20px;
+                    padding: 5px;
+                }
+            }
+        }
+    }
+}

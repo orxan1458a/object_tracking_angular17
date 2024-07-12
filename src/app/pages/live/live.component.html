@@ -1,0 +1,103 @@
+<app-loading *ngIf="isSpinnerShow"></app-loading>
+
+<div class="objects-container" *ngIf="!isSpinnerShow">
+
+  <div class="flex">
+    <label>{{'objects' | translate}} ({{this.objects_model.length}})</label>
+    <img title="Yenilə" (click)="refresh()">
+  </div>
+
+  <app-search-input (inputEvent)="searchInputEvent($event)"></app-search-input>
+
+  <hr>
+
+  <div class="flex-column">
+    <div>
+      <div class="driver_container">
+
+        <div (contextmenu)="onRightClick($event,object.gpsId)" (click)="objectFieldClick(object.gpsId)"
+        matRipple
+          [ngClass]="{'inFocus':this.data_service.focus_gps_id==object.gpsId}"
+          class="driver-field-container" *ngFor="let object of objects_model;trackBy: trackDataSource"
+          [style.display]="(object.gpsNumber+' '+object.objName).toLowerCase().includes(this.searchText.toLowerCase())?'block':'none'">
+          <div class="driver-field">
+
+            <div class="left-container">
+              <img *ngIf="object.objType==0"
+                [src]='this.data_service.focus_gps_id==object.gpsId?"../../../assets/images/gps_icon_turqoise.svg":"../../../assets/images/gps_icon_gray.svg"'
+                alt="" class="car-icon">
+              <img *ngIf="object.objType==1"
+                [src]='this.data_service.focus_gps_id==object.gpsId?"../../../assets/images/person_icon_turqoise.svg":"../../../assets/images/person_icon_gray.svg"'
+                alt="" class="car-icon">
+              <img *ngIf="object.objType==2"
+                [src]='this.data_service.focus_gps_id==object.gpsId?"../../../assets/images/car_icon_turqoise.svg":"../../../assets/images/car_icon.svg"'
+                alt="" class="car-icon">
+            </div>
+
+            <div class="center-container">
+
+              <div class="driver-name">
+                <label
+                  [style.color]="this.data_service.focus_gps_id==object.gpsId ? 'white' : 'black'">{{object.gpsNumber}}</label>
+              </div>
+
+              <div class="seria-number">
+                <label *ngIf="object.objName"
+                  [style.color]="this.data_service.focus_gps_id==object.gpsId ? 'white' : '#0586E9'"
+                  [matTooltip]="object.objName.length>15?''+object.objName:''">
+                  {{object.objName.length>15?object.objName.slice(0,15)+'...':object.objName}}</label>
+              </div>
+            </div>
+
+            <div class="right-container">
+              <label [hidden]="object.connToGPS==false"
+                [style.color]="this.data_service.focus_gps_id==object.gpsId ? 'white' : 'black'">{{object.speed+'
+                '}} {{'speedUnit'|translate}}</label>
+
+              <div class="icons">
+                <img *ngIf="object.connToGPS==true" [src]="'../../../assets/images/wifi_icon_green.svg'" alt=""
+                  class="icon">
+                <img *ngIf="object.connToGPS!=true" [src]="'../../../assets/images/no_wifi.svg'" alt="">
+
+
+                <img *ngIf="object.batteryPer>=75" [src]="object.sleep?'../../../assets/images/green_sleep_battery.png':'../../../assets/images/green_battery.png'">
+                <img *ngIf="object.batteryPer<75 && object.batteryPer>50"
+                  [src]="object.sleep?'../../../assets/images/yellow_sleep_battery.png':'../../../assets/images/yellow_battery.png'" alt="">
+                <img *ngIf="object.batteryPer<=50 && object.batteryPer>25"
+                  [src]="object.sleep?'../../../assets/images/orange_sleep_battery.png':'../../../assets/images/orange_battery.png'" alt="">
+                <img *ngIf="object.batteryPer<=25 && object.batteryPer>0"
+                  [src]="object.sleep?'../../../assets/images/red_sleep_battery.png':'../../../assets/images/red_battery.png'" alt="">
+                <img *ngIf="object.batteryPer==0 " [src]="'../../../assets/images/no_battery.png'" alt="">
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="container4">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Custom Context Menu -->
+<div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
+  [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
+</div>
+<mat-menu #contextMenu="matMenu" class="right-click-con">
+  <ng-template matMenuContent>
+
+    <button mat-menu-item (click)="onContextMenuItemClick('zones')">
+      <img src="../../../assets/images/triangle_turqoise.png" alt="">
+      <label>Zonalar</label>
+    </button>
+
+    <button mat-menu-item (click)="onContextMenuItemClick('details')">
+      <img src="../../../assets/images/info_icon_blue.svg" alt="">
+      <label>Ətraflı</label>
+    </button>
+
+  </ng-template>
+</mat-menu>

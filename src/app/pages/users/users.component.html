@@ -1,0 +1,41 @@
+<app-loading *ngIf="isSpinnerShow"></app-loading>
+<div class="users-container" *ngIf="!isSpinnerShow">
+
+    <div class="flex">
+        <label class="drivers-label">{{'users'|translate}} ({{users_model.length}})</label>
+        <img [src]="'../../../assets/images/refresh_icon.svg'" alt="" class="icon" title="Yenilə" (click)="refresh()">
+    </div>
+
+    <div class="add-user-button" title="İstifadəçi əlavə et" (click)="openAddUserDialog()">
+        <img>
+        <label>{{'add_user'|translate}}</label>
+    </div>
+
+    <app-search-input (inputEvent)="searchInputEvent($event)"></app-search-input>
+
+    <hr>
+
+    <label *ngIf="users_model.length==0 && usersDB.length!=0">"{{searchText}}"
+        {{'searchText_not_find'|translate}}</label>
+
+    <div class="users-container2">
+        <div *ngFor="let user of users_model;trackBy: trackDataSource">
+
+            <div class="user_field">
+                <img src="../../../assets/images/user_icon_black.svg" alt="" class="user-icon">
+                <div class="fullname-container">
+                    <label>{{user.firstName+' '+user.lastName}}</label>
+                </div>
+                <div class="icon-container">
+                    <img src="../../../assets/images/user_update_icon_black.svg" (click)="updateUserDialog(user.id)"
+                        alt="" class="icon">
+
+                    <hr class="vertical-line">
+
+                    <img src="../../../assets/images/remove_icon_red.svg" alt="" class="icon" mat-raised-button
+                        (click)="openDeleteDialog('100ms', '100ms',user.id)">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

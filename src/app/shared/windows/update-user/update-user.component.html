@@ -1,0 +1,57 @@
+<div class="update-user-container">
+
+    <div class="header">
+        <label>{{'update_user'|translate}}</label>
+        <img src="../../../assets/images/close_icon_black.svg" alt="" class="close-icon" (click)="closeDialog()">
+    </div>
+
+    <hr>
+
+    <div class="body">
+        <form [formGroup]="userForm">
+            <div class="grid-container">
+                <div class="inputs-container">
+                    <div class="input-contain">
+                        <label>{{'name'|translate}}<span>*</span></label>
+                        <input formControlName="firstName" [ngClass]="{'isDirtyClass': dirtyCheck('firstName')}">
+                    </div>
+
+                    <div class="input-contain">
+                        <label>{{'surname'|translate}}<span>*</span></label>
+                        <input formControlName="lastName" [ngClass]="{'isDirtyClass': dirtyCheck('lastName')}">
+                    </div>
+
+                    <div class="input-contain">
+                        <label>{{'username'|translate}}<span>*</span></label>
+                        <input formControlName="userName" [ngClass]="{'isDirtyClass': dirtyCheck('userName')}">
+                    </div>
+
+                    <div class="input-contain">
+                        <label>{{'email'|translate}}<span>*</span></label>
+                        <input id="email" placeholder="Elektron poçt ünvanı əlavə edin" formControlName="email" [ngClass]="{'isDirtyClass': dirtyCheck('email')}">
+                    </div>
+
+                    <div class="input-contain">
+                        <label>{{'phone_number'|translate}}<span>*</span></label>
+                        <div class="phoneCont" [ngClass]="{'isDirtyClass': dirtyCheck('phoneNumber')}">
+                            <span>+994</span>
+                            <input type="tel" matInput [mask]="'00-000-00-00'" placeholder="55-555-12-34" id="phone"
+                                formControlName="phoneNumber" >
+                        </div>
+                    </div>
+
+                    <div class="input-contain">
+                        <label>{{'password'|translate}}<span>*</span></label>
+                        <input id="password" type="password" placeholder="Password daxil edin" formControlName="password" [ngClass]="{'isDirtyClass': dirtyCheck('password')}">
+                    </div>
+                    
+                    <div class="btn-contain">
+                          <app-button (onClickEmitter)="updateBtn()" [buttonText]="'update'|translate" [buttonColor]="'#02B9B1'"
+                         class="button-container"></app-button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
